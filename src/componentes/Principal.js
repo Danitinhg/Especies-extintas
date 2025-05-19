@@ -1,0 +1,51 @@
+import React, { useContext, useState } from 'react';
+import { Row, Col, Card, Button, Form } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { EspeciesContext } from '../context/EspeciesContext';
+
+function Principal() {
+  const { especies, eliminarEspecie } = useContext(EspeciesContext);
+  const [filtro, setFiltro] = useState('');
+
+  const especiesFiltradas = especies.filter(e =>
+    filtro === '' || e.habitat.toLowerCase().includes(filtro.toLowerCase())
+  );
+
+  return (
+    <div>
+      <h1>Especies Extintas</h1>
+
+      <Form className="mb-4">
+        <Form.Group controlId="filtroHabitat">
+          <Form.Label>Filtrar por hábitat</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Ej: Asia, Europa..."
+            value={filtro}
+            onChange={(e) => setFiltro(e.target.value)}
+          />
+        </Form.Group>
+      </Form>
+
+      <Row>
+        {especiesFiltradas.map((especie, index) => (
+          <Col key={index} md={4} className="mb-4">
+            <Card>
+              <Card.Img variant="top" src={especie.imagen} height={200} style={{ objectFit: 'cover' }} />
+              <Card.Body>
+                <Card.Title>{especie.nombre}</Card.Title>
+                <Card.Text><strong>Hábitat:</strong> {especie.habitat}</Card.Text>
+                <Link to={`/especie/${especie.id}`}>
+                  <Button variant="primary" className="me-2">Detalles</Button>
+                </Link>
+                <Button variant="danger" onClick={() => eliminarEspecie(especie.id)}>Eliminar</Button>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </div>
+  );
+}
+
+export default Principal;
