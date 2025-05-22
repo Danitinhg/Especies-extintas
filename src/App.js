@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container, Navbar, Nav } from 'react-bootstrap';
 
 import Principal from './componentes/Principal';
-//import DetalleEspecie from './componentes/DetalleEspecie';
+import DetalleEspecie from './componentes/DetalleEspecie';
 //import AnadirEspecieForm from './componentes/AnadirEspecieForm';
 //import Mapa from './componentes/Mapa';
 
@@ -29,7 +29,7 @@ function App() {
         <Container className="mt-4">
           <Routes>
             <Route path="/" element={<Principal />} />
-            {/*<Route path="/especie/:id" element={<DetalleEspecie />} />*/}
+            <Route path="/especie/:id" element={<DetalleEspecie />} />
             {/*<Route path="/form" element={<AnadirEspecieForm />} />*/}
             {/*<Route path="/mapa" element={<Mapa />} />*/}
           </Routes>

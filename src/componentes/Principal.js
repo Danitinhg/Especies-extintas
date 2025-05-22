@@ -31,7 +31,12 @@ function Principal() {
         {especiesFiltradas.map((especie, index) => (
           <Col key={index} md={4} className="mb-4">
             <Card>
-              <Card.Img variant="top" src={especie.imagen} height={200} style={{ objectFit: 'cover' }} />
+              <Card.Img variant="top" src={`/imagenes/${especie.imagen}`} alt={especie.nombre} 
+              style={{ 
+                height: '200px', 
+                width: '100%', 
+                objectFit: 'contain'
+                }} />
               <Card.Body>
                 <Card.Title>{especie.nombre}</Card.Title>
                 <Card.Text><strong>Hábitat:</strong> {especie.habitat}</Card.Text>
