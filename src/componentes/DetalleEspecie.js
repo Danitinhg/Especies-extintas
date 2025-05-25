@@ -8,6 +8,12 @@ const DetalleEspecie = () => {
   const navigate = useNavigate();
   const { obtenerEspeciePorId } = useContext(EspeciesContext);
 
+  const imgURL = (imagen) => {
+  if (!imagen) return '';
+  if (imagen.startsWith('http') || imagen.startsWith('blob:')) return imagen;
+  return `/imagenes/${imagen}`;
+  };
+
   const especie = obtenerEspeciePorId(id);
 
   if (!especie) {
@@ -23,7 +29,7 @@ const DetalleEspecie = () => {
       <Card>
         <Card.Img
           variant="top"
-          src={`/imagenes/${especie.imagen}`}
+          src={imgURL(especie.imagen)}
           alt={especie.nombre}
           style={{ 
             height: '300px',

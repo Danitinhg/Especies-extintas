@@ -7,17 +7,28 @@ export const EspeciesProvider = ({ children }) => {
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
-    fetch('/especies.json')
-      .then(res => res.json())
-      .then(data => {
+    const datosGuardados = localStorage.getItem('especies');
+
+    if (datosGuardados) {
+      setEspecies(JSON.parse(datosGuardados));
+      setCargando(false);
+    } else {
+      fetch('/especies.json').then(res => res.json()).then(data => {
         setEspecies(data);
+        localStorage.setItem('especies', JSON.stringify(data));
         setCargando(false);
-      })
-      .catch(err => {
-        console.error("Error al cargar el JSON:", err);
+      }).catch(err => {
+        console.error("Error al cargar el Json:", err);
         setCargando(false);
       });
+    }
   }, []);
+
+  useEffect(() => {
+    if (!cargando) {
+      localStorage.setItem('especies', JSON.stringify(especies));
+    }
+  }, [especies, cargando])
 
   const agregarEspecie = (nuevaEspecie) => {
     nuevaEspecie.id = Date.now();

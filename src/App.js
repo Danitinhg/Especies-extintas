@@ -3,7 +3,7 @@ import { Container, Navbar, Nav } from 'react-bootstrap';
 
 import Principal from './componentes/Principal';
 import DetalleEspecie from './componentes/DetalleEspecie';
-//import AnadirEspecieForm from './componentes/AnadirEspecieForm';
+import AnadirEspecieForm from './componentes/AnadirEspecieForm';
 //import Mapa from './componentes/Mapa';
 
 import { EspeciesProvider } from './context/EspeciesContext';
@@ -30,7 +30,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Principal />} />
             <Route path="/especie/:id" element={<DetalleEspecie />} />
-            {/*<Route path="/form" element={<AnadirEspecieForm />} />*/}
+            <Route path="/nueva" element={<AnadirEspecieForm />} />
             {/*<Route path="/mapa" element={<Mapa />} />*/}
           </Routes>
         </Container>

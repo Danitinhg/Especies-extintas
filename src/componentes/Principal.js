@@ -7,6 +7,13 @@ function Principal() {
   const { especies, eliminarEspecie } = useContext(EspeciesContext);
   const [filtro, setFiltro] = useState('');
 
+  const imgURL = (imagen) => {
+  if (!imagen) return '';
+  if (imagen.startsWith('http') || imagen.startsWith('blob:')) return imagen;
+  return `/imagenes/${imagen}`;
+  };
+
+
   const especiesFiltradas = especies.filter(e =>
     filtro === '' || e.habitat.toLowerCase().includes(filtro.toLowerCase())
   );
@@ -31,7 +38,7 @@ function Principal() {
         {especiesFiltradas.map((especie, index) => (
           <Col key={index} md={4} className="mb-4">
             <Card>
-              <Card.Img variant="top" src={`/imagenes/${especie.imagen}`} alt={especie.nombre} 
+              <Card.Img variant="top" src={imgURL(especie.imagen)} alt={especie.nombre} 
               style={{ 
                 height: '200px', 
                 width: '100%', 
@@ -49,6 +56,7 @@ function Principal() {
           </Col>
         ))}
       </Row>
+      <button onClick={() => {localStorage.removeItem('especies'); window.location.reload();}}>Restablecer</button>
     </div>
   );
 }
