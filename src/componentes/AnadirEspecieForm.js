@@ -26,24 +26,41 @@ const AnadirEspecieForm = () => {
     }));
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData((prev) => ({
-        ...prev,
-        imagenFile: file,
-      }));
-      setPreviewURL(URL.createObjectURL(file));
+      try {
+        const base64 = await convertirABase64(file);
+        setFormData((prev) => ({
+          ...prev,
+          imagenFile: file,
+        }));
+        setPreviewURL(base64);
+      } catch (err) {
+        console.error('Error con la imagen', err);
+      }
     }
   };
 
-  const handleSubmit = (e) => {
+  const convertirABase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!formData.nombre || !formData.imagenFile) {
       alert('Nombre e imagen son obligatorios');
       return;
     }
+
+    const base64 = previewURL;
 
     const nuevaEspecie = {
       id: Date.now(),
@@ -52,7 +69,7 @@ const AnadirEspecieForm = () => {
       habitat: formData.habitat,
       tipo_animal: formData.tipo_animal,
       causas: formData.causas.split(',').map((c) => c.trim()),
-      imagen: previewURL,
+      imagen: base64,
     };
 
     agregarEspecie(nuevaEspecie);

@@ -10,7 +10,7 @@ const DetalleEspecie = () => {
 
   const imgURL = (imagen) => {
   if (!imagen) return '';
-  if (imagen.startsWith('http') || imagen.startsWith('blob:')) return imagen;
+  if (imagen.startsWith('http') || imagen.startsWith('data:') || imagen.startsWith('blob:')) return imagen;
   return `/imagenes/${imagen}`;
   };
 
