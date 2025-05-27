@@ -4,7 +4,8 @@ import { Container, Navbar, Nav } from 'react-bootstrap';
 import Principal from './componentes/Principal';
 import DetalleEspecie from './componentes/DetalleEspecie';
 import AnadirEspecieForm from './componentes/AnadirEspecieForm';
-//import Mapa from './componentes/Mapa';
+import Mapa from './componentes/Mapa';
+import LineaTiempo from './componentes/LineaTiempo';
 
 import { EspeciesProvider } from './context/EspeciesContext';
 
@@ -21,6 +22,7 @@ function App() {
                 <Nav.Link href="/">Inicio</Nav.Link>
                 <Nav.Link href="/mapa">Mapa</Nav.Link>
                 <Nav.Link href="/nueva">Añadir Especie</Nav.Link>
+                <Nav.Link href="/linea">Línea de Tiempo</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -31,7 +33,8 @@ function App() {
             <Route path="/" element={<Principal />} />
             <Route path="/especie/:id" element={<DetalleEspecie />} />
             <Route path="/nueva" element={<AnadirEspecieForm />} />
-            {/*<Route path="/mapa" element={<Mapa />} />*/}
+            <Route path="/mapa" element={<Mapa />} />
+            <Route path="/linea" element={<LineaTiempo />} />
           </Routes>
         </Container>
       </Router>
