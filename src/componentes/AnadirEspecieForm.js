@@ -55,8 +55,8 @@ const AnadirEspecieForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.nombre || !formData.imagenFile) {
-      alert('Nombre e imagen son obligatorios');
+    if (!formData.nombre || !formData.imagenFile || !formData.periodo || !formData.habitat || !formData.causas || !formData.tipo_animal) {
+      alert('Rellena todos los campos para añadir una nueva especie');
       return;
     }
 
@@ -87,22 +87,22 @@ const AnadirEspecieForm = () => {
 
         <Form.Group className="mb-3">
           <Form.Label>Período</Form.Label>
-          <Form.Control type="text" name="periodo" value={formData.periodo} onChange={handleChange} />
+          <Form.Control type="text" name="periodo" value={formData.periodo} onChange={handleChange} required/>
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Form.Label>Hábitat</Form.Label>
-          <Form.Control type="text" name="habitat" value={formData.habitat} onChange={handleChange} />
+          <Form.Control type="text" name="habitat" value={formData.habitat} onChange={handleChange} required/>
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Form.Label>Tipo de Animal</Form.Label>
-          <Form.Control type="text" name="tipo_animal" value={formData.tipo_animal} onChange={handleChange} />
+          <Form.Control type="text" name="tipo_animal" value={formData.tipo_animal} onChange={handleChange} required/>
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Form.Label>Causas (separadas por coma)</Form.Label>
-          <Form.Control type="text" name="causas" value={formData.causas} onChange={handleChange} />
+          <Form.Control type="text" name="causas" value={formData.causas} onChange={handleChange} required/>
         </Form.Group>
 
         <Form.Group className="mb-3">

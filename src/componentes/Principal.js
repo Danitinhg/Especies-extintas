@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { Row, Col, Card, Button, Form } from 'react-bootstrap';
+import { Row, Col, Card, Button, Form, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { EspeciesContext } from '../context/EspeciesContext';
 
-function Principal() {
+function Principal({ filtroNav }) {
   const { especies, eliminarEspecie } = useContext(EspeciesContext);
   const [filtro, setFiltro] = useState('');
 
@@ -13,9 +13,10 @@ function Principal() {
   return `/imagenes/${imagen}`;
   };
 
-
   const especiesFiltradas = especies.filter(e =>
-    filtro === '' || e.habitat.toLowerCase().includes(filtro.toLowerCase())
+    (filtroNav === '' || e.nombre.toLowerCase().includes(filtroNav.toLowerCase()) || e.causas.some(causa =>
+       causa.toLowerCase().includes(filtroNav.toLowerCase()))) && 
+    (filtro === '' || e.habitat.toLowerCase().includes(filtro.toLowerCase()))
   );
 
   return (
@@ -45,18 +46,31 @@ function Principal() {
                 objectFit: 'contain'
                 }} />
               <Card.Body>
-                <Card.Title>{especie.nombre}</Card.Title>
-                <Card.Text><strong>Hábitat:</strong> {especie.habitat}</Card.Text>
                 <Link to={`/especie/${especie.id}`}>
-                  <Button variant="primary" className="me-2">Detalles</Button>
+                  <Card.Title>{especie.nombre}</Card.Title>
                 </Link>
-                <Button variant="danger" onClick={() => eliminarEspecie(especie.id)}>Eliminar</Button>
+                <Card.Text>
+                    <strong>Causas de extinción:</strong><br />
+                    {especie.causas.map((causa, index) => (
+                      <Badge key={index} bg="danger" className="me-2">{causa}</Badge>
+                    ))}
+                </Card.Text>
+                <Button variant="dark" onClick={() => eliminarEspecie(especie.id)}>Eliminar</Button>
               </Card.Body>
             </Card>
           </Col>
         ))}
       </Row>
-      <button onClick={() => {localStorage.removeItem('especies'); window.location.reload();}}>Restablecer</button>
+      <button onClick={() => {localStorage.removeItem('especies'); window.location.reload();}} 
+        style={{
+          position: 'fixed',
+          right: '20px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          background: 'none',
+          borderRadius: '11px',
+          padding: 0
+         }}><img src="/imagenes/recarg.jpg" alt="Restablecer" style={{ width: '40px', height: '40px', borderRadius: '10px' }} /></button>
     </div>
   );
 }
