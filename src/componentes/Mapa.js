@@ -34,8 +34,7 @@ const Mapa = () => {
       <MapContainer center={[20, 0]} zoom={2} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           attribution='&copy; OpenStreetMap contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
 
         {especies.map((especie, index) => {
           const coords = ubicacionesHabitat[especie.habitat];
